@@ -15,6 +15,7 @@ const Title = styled.h1`
   font-family: "", cursive; //폰트를 넣어야하는데 모르겠다...
   font-size: 48px;
   font-weight: bold;
+  transform: translateY(-120%);
   span {
   }
 `;

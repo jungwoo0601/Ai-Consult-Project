@@ -1,19 +1,21 @@
+// App.js
+
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Home/HomePage";
 import AboutPage from "./pages/About/AboutPage";
 import IntroLawyerPage from "./pages/IntroLawyers/IntroLawyerPage";
-import LoginPage from "./pages/Login/LoginPage";
-
+import LoginPage from "./pages/Login/LoginPage"; // 이곳에서 /login을 /lo로 바꾸고 싶어요.
 import Header from "./components/Header";
-import Footer from "./components/Footer"; // Footer 컴포넌트 임포트
+import Footer from "./components/Footer";
+import AdminPage from "./pages/Login/AdminPage";
 
 const AppContainer = styled.div`
   background: url(${process.env.PUBLIC_URL}/assets/background.png) no-repeat
     center center;
   background-size: cover;
-  min-height: 100vh; // 전체 화면 높이 설정
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   color: #fff;
@@ -21,7 +23,7 @@ const AppContainer = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 1; // flex-grow 설정으로 남은 공간을 채움
+  flex: 1;
 `;
 
 const App = () => {
@@ -34,7 +36,8 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/introLawyer" element={<IntroLawyerPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />{" "}
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </Content>
         <Footer />

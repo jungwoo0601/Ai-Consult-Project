@@ -11,7 +11,7 @@ const FooterContainer = styled.footer`
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 1000; // 헤더와 다른 요소 위에 표시되도록 z-index 설정
+  z-index: 1000;
 `;
 
 const Footer = () => {

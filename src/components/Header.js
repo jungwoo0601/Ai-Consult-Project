@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { FaSearch, FaBars } from "react-icons/fa"; // Font Awesome 아이콘 임포트
+import { FaBars } from "react-icons/fa";
+import { IoMdPerson } from "react-icons/io";
 
 const TopBar = styled.div`
   display: flex;
@@ -77,20 +78,39 @@ const Icons = styled.div`
 const DropdownBox = styled.div`
   position: absolute;
   top: 120px;
-
+  right: 95px;
   background-color: #fff;
   color: #000;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 `;
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <>
@@ -119,10 +139,10 @@ const Header = () => {
           </ul>
         </Nav>
         <Icons>
-          <FaSearch size={20} />
-          <FaBars size={20} onClick={toggleDropdown} />
+          <FaBars size={20} />
+          <IoMdPerson size={20} onClick={toggleDropdown} />
           {isDropdownOpen && (
-            <DropdownBox>
+            <DropdownBox ref={dropdownRef}>
               <Link to="/login">로그인</Link>
             </DropdownBox>
           )}
