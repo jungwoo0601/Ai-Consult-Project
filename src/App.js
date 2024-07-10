@@ -3,12 +3,14 @@
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 import HomePage from "./pages/Home/HomePage";
 import AboutPage from "./pages/About/AboutPage";
 import IntroLawyerPage from "./pages/IntroLawyers/IntroLawyerPage";
 import LoginPage from "./pages/Login/LoginPage"; // 이곳에서 /login을 /lo로 바꾸고 싶어요.
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import AdminPage from "./pages/Login/AdminPage";
 
 const AppContainer = styled.div`
