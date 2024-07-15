@@ -60,7 +60,11 @@ const Nav = styled.nav`
     font-size: 18px;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: #fff;
     }
   }
 `;
@@ -96,7 +100,11 @@ const DropdownBox = styled.div`
     text-decoration: none;
     margin: 5px 0;
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: #fff;
     }
   }
 `;
@@ -121,14 +129,18 @@ const MenuDropdownBox = styled.div`
     text-decoration: none;
     margin: 5px 0;
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
+    }
+
+    &:visited {
+      color: #fff;
     }
   }
 `;
 
 const DropMenuStyle = styled.div`
   position: absolute;
-  top: 145px;
+  top: 143px;
   left: 0;
   width: 100%;
   background-color: #09132d;
@@ -153,7 +165,7 @@ const DropMenuList = styled.div`
 `;
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
   const menuDropdownRef = useRef(null);
@@ -172,7 +184,7 @@ const Header = () => {
     if (
       headerContainerRef.current &&
       dropMenuRef.current &&
-      event.relatedTarget &&
+      event.relatedTarget instanceof Node &&
       !headerContainerRef.current.contains(event.relatedTarget) &&
       !dropMenuRef.current.contains(event.relatedTarget)
     ) {
@@ -183,14 +195,21 @@ const Header = () => {
   const handleClickOutside = (event) => {
     if (
       dropdownRef.current &&
-      !dropdownRef.current.contains(event.target) &&
       menuDropdownRef.current &&
-      !menuDropdownRef.current.contains(event.target) &&
       dropMenuRef.current &&
+      event.target instanceof Node &&
+      !dropdownRef.current.contains(event.target) &&
+      !menuDropdownRef.current.contains(event.target) &&
       !dropMenuRef.current.contains(event.target)
     ) {
       setActiveDropdown(null);
     }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    // 로그아웃 후 리다이렉트가 필요하면 아래 코드를 사용하세요.
+    // history.push("/login");
   };
 
   useEffect(() => {
@@ -237,8 +256,10 @@ const Header = () => {
             <DropdownBox ref={dropdownRef}>
               {isLoggedIn ? (
                 <>
-                  <Link to="/logout">로그아웃</Link>
-                  <Link to="/deleteAccount">회원탈퇴</Link>
+                  <Link to="/logout" onClick={handleLogout}>
+                    로그아웃
+                  </Link>
+                  <Link to="/withdrawl">회원탈퇴</Link>
                 </>
               ) : (
                 <Link to="/login">로그인</Link>
@@ -249,7 +270,7 @@ const Header = () => {
             <MenuDropdownBox ref={menuDropdownRef}>
               <Link to="/faq">F&A</Link>
               <Link to="/contact">문의하기</Link>
-              <Link to="/terms">약관 확인</Link>
+              <Link to="/useRules">약관 확인</Link>
             </MenuDropdownBox>
           )}
         </Icons>
@@ -258,7 +279,9 @@ const Header = () => {
         <DropMenuStyle ref={dropMenuRef} onMouseLeave={handleMouseLeave}>
           <DropMenuContainer>
             <DropMenuList>AI에게 질문하기</DropMenuList>
-            <DropMenuList>변호사 목록</DropMenuList>
+            <DropMenuList>
+              <Link to="/introlawyer">변호사 목록</Link>
+            </DropMenuList>
             <DropMenuList>소송장 관리하기</DropMenuList>
             <DropMenuList>AI에게 첨삭받기</DropMenuList>
             <DropMenuList></DropMenuList>

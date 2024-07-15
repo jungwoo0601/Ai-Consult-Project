@@ -257,14 +257,11 @@ const IntroLawyerContent = () => {
               </HeaderSpecialtyContainer>
               <LawyerDetailText>{selectedLawyer.detail}</LawyerDetailText>
               {selectedLawyer.career && (
-                <div>
-                  <h3 style={{ color: "black", left: "100px" }}>경력</h3>
-                  <LawyerCareer>
-                    {selectedLawyer.career.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </LawyerCareer>
-                </div>
+                <LawyerCareer>
+                  {selectedLawyer.career.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </LawyerCareer>
               )}
             </LawyerDetailInfo>
           </LawyerDetailContainer>
